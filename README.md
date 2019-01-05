@@ -7,6 +7,7 @@ Currently only the infrastructure to describe a game has been made, playing is s
 The project can be tested by initializing an instance of `Game` and describing it using the `state_summary` method.
 
 Output of `print(Game(2).state_summary())`:
+
     Current turn: 0
     Current player: 0
 
@@ -40,8 +41,9 @@ Output of `print(Game(2).state_summary())`:
     Row 3: pie, duck, flamant
 
 # Todo
-[X] Make a class for a stack of cards, with methods to draw, add, subtract, get and set in dictionary and list form.
-[>] Make a class for a game of Cubirds to store a persistent game state, with methods to play.
-[ ] Study strategies by simulating random player actions.
-[ ] Refine analysis by making agents smarter (using Monte-Carlo tree search).
-[ ] Develop an Alpha-Zero-like reinforcement learning approach to learn optimal strategies through self-play.
+
+    [X] Make a class for a stack of cards, with methods to draw, add, subtract, get and set in dictionary and list form.
+    [>] Make a class for a game of Cubirds to store a persistent game state, with methods to play rounds and advance the game to the end.
+    [ ] Study strategies by simulating random player actions.
+    [ ] Refine analysis by making agents smarter (using a tree search algorithm with simulation of random events).
+    [ ] Develop an Alpha-Zero-like reinforcement learning approach to learn optimal strategies through self-play.
