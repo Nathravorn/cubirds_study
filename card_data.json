@@ -1,0 +1,42 @@
+{
+  "cube": {
+    "count": 20,
+    "small": 6,
+    "big": 9
+    },
+  "sandwich": {
+    "count": 20,
+    "small": 6,
+    "big": 9
+    },
+  "pie": {
+    "count": 17,
+    "small": 5,
+    "big": 7
+    },
+  "duck": {
+    "count": 13,
+    "small": 4,
+    "big": 6
+    },
+  "parrot": {
+    "count": 13,
+    "small": 4,
+    "big": 6
+    },
+  "hibou": {
+    "count": 10,
+    "small": 3,
+    "big": 4
+    },
+  "toucan": {
+    "count": 10,
+    "small": 3,
+    "big": 4
+    },
+  "flamant": {
+    "count": 7,
+    "small": 2,
+    "big": 3
+    }
+}
