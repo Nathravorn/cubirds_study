@@ -2,8 +2,8 @@ import numpy as np
 import pandas as pd
 from random import shuffle
 
-from utils import card_data, get_deck, count_hand, list_hand
-
+from utils import card_data
+from stack import Stack, get_deck
 
 class Game:
     def __init__(self, n_players=4):
@@ -12,8 +12,7 @@ class Game:
         self.current_player = 0
 
         self.deck = get_deck()
-        self.discard = []
-        shuffle(self.deck)
+        self.discard = Stack()
         self.hands = self.init_hands()
         self.collections = self.init_collections()
         self.board = self.init_board()

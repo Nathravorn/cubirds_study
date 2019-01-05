@@ -3,10 +3,11 @@ import pandas as pd
 import json
 # import pydealer
 
-from stack import Stack
-
 with open('card_data.json', 'r') as file:
     card_data = json.load(file)
+
+# card_data = list('abc')
+
 
 def count_hand(hand):
     '''Count the unique cards in a list of cards (hand).
@@ -16,7 +17,7 @@ def count_hand(hand):
         dict: name->count dictionary. Includes birds which appear 0 times.
     '''
     count = {bird: 0 for bird in card_data}
-    count.update({k: v for k, v in zip(*np.unique(hand, return_counts=True))})
+    count.update({k: int(v) for k, v in zip(*np.unique(hand, return_counts=True))})
     return count
 
 def list_hand(hand):
@@ -48,13 +49,6 @@ def dedupe(hand):
             dupes[bird] = count - 1
 
     return hand, dupes
-
-def get_deck():
-    '''Return a list of 110 strings representing cards in the game.
-    '''
-    deck = {bird: atts['count'] for bird, atts in card_data.items()}
-
-    return list_hand(deck)
 
 def get_bird_df():
     '''Return a dataframe containing common stats about each bird.
