@@ -50,6 +50,9 @@ class Stack:
     def __str__(self):
         return json.dumps(self.d, indent=4, sort_keys=True)
 
+    def __repr__(self):
+        return str(self)
+
     def __getitem__(self, key):
         return self.d[key]
 
@@ -63,6 +66,9 @@ class Stack:
         self.d = count_hand(new_list)
 
     l = property(get_list, set_list)
+
+    def n_unique(self):
+        return len(set(self.l))
 
     def __len__(self):
         return len(self.l)

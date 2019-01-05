@@ -26,30 +26,30 @@ class Game:
         discard pile into the deck.
         '''
         if len(self.deck) >= n:
-            hand = self.deck[:n]
-            self.deck = self.deck[n:]
+            hand = self.deck.draw(n)
         else:
             if len(self.deck) + len(self.discard) >= n:
                 hand = self.deck
                 self.deck = self.discard
-                shuffle(self.deck)
-                self.discard = []
-                hand.extend(draw(n-len(hand)))
+                self.discard = Stack()
+                hand = hand + self.draw(n-len(hand))
             else:
                 raise Exception('Cannot draw {} from {}'.format(n,
                                 len(self.deck) + len(self.discard)))
 
+        return hand
+
     def init_hands(self):
         hands = {}
         for player in range(self.n_players):
-            hands[player] = count_hand(self.draw(8))
+            hands[player] = self.draw(8)
 
         return hands
 
     def init_collections(self):
         collections = {}
         for player in range(self.n_players):
-            collections[player] = count_hand(self.draw(1))
+            collections[player] = self.draw(1)
 
         return collections
 
@@ -57,13 +57,52 @@ class Game:
         board = {}
         for n_row in range(4):
             row = self.draw(3)
-            while len(set(row)) < 3:
-
+            while row.n_unique() < 3:
+                row, dupes = row.dedupe()
+                self.discard += dupes
+                row += self.draw(1)
+            board[n_row] = row
 
         return board
 
+    def state_summary(self):
+        def indent_string(s):
+            return '    '+s.replace('\n', '\n    ')
+
+        def title(s):
+            return s + '\n' + '='*len(s) + '\n'
+
+        out = [
+            'Current turn: {}'.format(self.current_turn),
+            'Current player: {}'.format(self.current_player),
+            '',
+            'Deck:',
+            indent_string(str(self.deck)),
+            '\n\n'
+        ]
+
+        for player in range(self.n_players):
+            out.extend([
+                'Player {}:'.format(player),
+                '    Hand: ' + ', '.join(self.hands[player].l),
+                '    Collection: ' + ', '.join(self.collections[player].l)
+            ])
+
+        out.extend([
+            '\n\n',
+            'Board:'
+        ])
+
+        for n_row in range(4):
+            out.append('Row {}: '.format(n_row) + ', '.join(self.board[n_row].l))
+
+        return '\n'.join(out)
+
 game = Game(2)
 
-print(len(game.deck))
-print(game.hands)
-print(game.collections)
+# print(len(game.deck))
+# print(game.hands)
+# print(game.collections)
+# print(game.board)
+
+print(game.state_summary())
