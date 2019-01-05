@@ -98,11 +98,6 @@ class Game:
 
         return '\n'.join(out)
 
-game = Game(2)
-
-# print(len(game.deck))
-# print(game.hands)
-# print(game.collections)
-# print(game.board)
-
-print(game.state_summary())
+if __name__ == '__main__':
+    game = Game(2)
+    print(game.state_summary())
