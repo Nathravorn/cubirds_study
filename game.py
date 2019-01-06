@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from random import shuffle
 
 from utils import card_data
@@ -164,11 +163,15 @@ class Game:
             'Current turn: {}'.format(self.current_turn),
             'Current player: {}'.format(self.current_player),
             'Current phase: {}'.format(self.current_phase),
-            '',
-            'Deck:',
-            indent_string(str(self.deck)),
-            '\n\n'
+            ''
         ]
+
+        out.append('Board:')
+
+        for n_row in range(self.n_rows):
+            out.append('Row {}: '.format(n_row) + ', '.join(x.rjust(8) for x in self.board[n_row]))
+
+        out.append('\n')
 
         for player in range(self.n_players):
             out.extend([
@@ -179,11 +182,9 @@ class Game:
 
         out.extend([
             '\n\n',
-            'Board:'
+            'Deck:',
+            indent_string(str(self.deck)),
         ])
-
-        for n_row in range(4):
-            out.append('Row {}: '.format(n_row) + ', '.join(x.rjust(8) for x in self.board[n_row]))
 
         return '\n'.join(out)
 
@@ -283,9 +284,9 @@ class Game:
 
 if __name__ == '__main__':
     game = Game(n_players=2)
-    # print(game.state_summary())
-    game.board[0] = ['parrot', 'parrot', 'parrot', 'parrot', 'cube']
-    game.hands[0] = Stack(['cube', 'cube'])
-    game.lay('cube', 0, 'left')
-    game.flock('parrot')
     print(game.state_summary())
+    # game.board[0] = ['parrot', 'parrot', 'parrot', 'parrot', 'cube']
+    # game.hands[0] = Stack(['cube', 'cube'])
+    # game.lay('cube', 0, 'left')
+    # game.flock('parrot')
+    # print(game.state_summary())

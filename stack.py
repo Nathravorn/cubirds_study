@@ -1,7 +1,6 @@
 from random import shuffle
 import json
 import numpy as np
-import pandas as pd
 from utils import card_data, count_hand, list_hand
 
 
@@ -61,10 +60,12 @@ class Stack:
             raise Exception('Unrecognized input type.')
 
     def __str__(self):
-        return json.dumps(self.d, indent=4, sort_keys=True)
+        out = {k: v for k, v in self.d.items() if v > 0}
+        return json.dumps(out, indent=4, sort_keys=True)
 
     def __repr__(self):
-        return str(self.d)
+        out = {k: v for k, v in self.d.items() if v > 0}
+        return str(out)
 
     def __getitem__(self, key):
         return self.d[key]

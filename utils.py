@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import json
 # import pydealer
 
@@ -8,6 +7,8 @@ with open('card_data.json', 'r') as file:
 
 # card_data = list('abc')
 
+def json_print(d):
+    print(json.dumps(d, indent=4, sort_keys=True))
 
 def count_hand(hand):
     '''Count the unique cards in a list of cards (hand).
