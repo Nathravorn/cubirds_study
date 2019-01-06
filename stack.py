@@ -73,6 +73,13 @@ class Stack:
     def __len__(self):
         return len(self.l)
 
+    def __contains__(self, other):
+        try:
+            self - other
+            return True
+        except Exception:
+            return False
+
     def __add__(self, other):
         other = self.standardize_input(other, 'list')
         out = self.l + other
@@ -93,6 +100,13 @@ class Stack:
         out = list(np.random.choice(self.l, min(n, len(self)), replace=False))
         self.d = (self - out).d
 
+        return Stack(out)
+
+    def draw_all(self, bird):
+        '''Draw all cards of type bird from self and return them.
+        '''
+        out = [bird] * self[bird]
+        self[bird] = 0
         return Stack(out)
 
     def dedupe(self):
@@ -117,7 +131,10 @@ def get_deck():
     return Stack(deck)
 
 
-# stack = Stack(list('abcabc'))
-# hand = stack.draw(10)
-#
-# print(stack, hand)
+# if __name__ == '__main__':
+    # stack = Stack(list('abcabc'))
+    # hand = stack.draw(10)
+    #
+    # print(stack, hand)
+
+    # print(list('abcaa') in stack)
