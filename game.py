@@ -147,7 +147,7 @@ class Game:
         '''
         if collection.n_unique() >= 7:
             return True
-        elif len(c for c in collection.d.values() if c >= 3) >= 2:
+        elif len([c for c in collection.d.values() if c >= 3]) >= 2:
             return True
         else:
             return False
