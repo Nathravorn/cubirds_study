@@ -67,6 +67,10 @@ class Stack:
 
     l = property(get_list, set_list)
 
+    @property
+    def empty(self):
+        return self.l == []
+
     def n_unique(self):
         return len(set(self.l))
 

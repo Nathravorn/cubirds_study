@@ -36,8 +36,7 @@ class Game:
                 self.discard = Stack()
                 hand = hand + self.draw(n-len(hand))
             else:
-                raise Exception('Cannot draw {} from {}'.format(n,
-                                len(self.deck) + len(self.discard)))
+                self.end_game()
 
         return hand
 
@@ -89,6 +88,38 @@ class Game:
             self.current_player = 0
             self.current_turn += 1
         self.current_phase = 'lay'
+
+    def next_round(self):
+        '''Goes to the next round. Discards all the cards in players' hands and
+        replaces them with 8 new ones.
+        Resets the current player's turn (puts them back at 'lay' phase).
+        '''
+        self.discard += sum(self.hands)
+        init_hands()
+        self.current_phase = 'lay'
+
+    def end_game(self):
+        self.end = True
+        if self.winner:
+            print('\nThe game has ended!')
+            print('The winner is: player {}!'.format(self.winner))
+        else:
+            print('The game has ended in a draw!')
+
+        print('Game state at the end:\n\n')
+        print(self.state_summary())
+
+    def check_win(self, collection):
+        '''Checks if a given collection is a winning one.
+        There are two win conditions: having seven different species or having
+        at least three of two different species.
+        '''
+        if collection.n_unique() >= 7:
+            return True
+        elif len(c for c in collection.d.values() if c >= 3) >= 2:
+            return True
+        else:
+            return False
 
     def state_summary(self):
         def indent_string(s):
@@ -203,7 +234,16 @@ class Game:
             else:
                 self.current_collection += [bird]
 
-        self.next_turn()
+        if self.check_win(self.current_collection):
+            self.winner = self.current_player
+            self.end_game()
+
+        else:
+            if self.current_hand.empty:
+                self.next_round()
+            else:
+                self.next_turn()
+
 
 if __name__ == '__main__':
     game = Game(n_players=2)
