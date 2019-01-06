@@ -6,26 +6,58 @@ from utils import card_data
 from stack import Stack, get_deck
 
 class Game:
-    def __init__(self, n_players=4):
+    '''A class representing a game of Cubirds.
+
+    Attributes:
+        n_players (int): The number of players in the game.
+        current_turn (int): The current turn number. Starts at 0 and increments
+                            once every player has played.
+        current_player (int): The player whose turn it is.
+        current_phase (str): 'lay' or 'flock'. The current phase of the player's
+                             turn.
+        n_rows (int): The number of rows on the board. Defaults to 4.
+
+        deck (Stack): Cards remaining in the deck.
+        discard (Stack): Discard pile.
+        hands (dict of Stacks): dict with player numbers as keys and player
+                                hands as values.
+        collections (dict of Stacks): dict with player numbers as keys and
+                                      player collections as values.
+        board (dict of lists of strings): rows on the board. Represented as
+                                          lists because their order matters.
+
+        end (bool): Whether the game has ended or not.
+        winner (int): if end, can be int to signify the winner or None if the
+                      game ended in a draw.
+    '''
+    def __init__(self, n_players=4, n_rows=4):
+        '''Initialize a game of Cubirds.
+
+        Args:
+            n_players: The number of players.
+            n_rows: The number of rows on the board. Defaults to 4.
+        '''
         self.n_players = n_players
         self.current_turn = 0
         self.current_player = 0
         self.current_phase = 'lay'
-        self.n_rows = 4
+        self.n_rows = n_rows
 
         self.deck = get_deck()
         self.discard = Stack()
-        self.hands = self.init_hands()
-        self.collections = self.init_collections()
-        self.board = self.init_board()
+        self.hands = self._init_hands()
+        self.collections = self._init_collections()
+        self.board = self._init_board()
 
         self.end = False
         self.winner = None
 
     def draw(self, n=1):
-        '''Removes the first n cards from the deck and returns them.
-        If draw is impossible, draws until deck is empty, then shuffles the
+        '''Remove the first n cards from the deck and return them.
+        If draw is impossible, draw until deck is empty, then shuffle the
         discard pile into the deck.
+        If there aren't enough cards in the deck and the discard pile combined,
+        end the game in a draw.
         '''
         if len(self.deck) >= n:
             hand = self.deck.draw(n)
@@ -36,25 +68,25 @@ class Game:
                 self.discard = Stack()
                 hand = hand + self.draw(n-len(hand))
             else:
-                self.end_game()
+                self._end_game()
 
         return hand
 
-    def init_hands(self):
+    def _init_hands(self):
         hands = {}
         for player in range(self.n_players):
             hands[player] = self.draw(8)
 
         return hands
 
-    def init_collections(self):
+    def _init_collections(self):
         collections = {}
         for player in range(self.n_players):
             collections[player] = self.draw(1)
 
         return collections
 
-    def init_board(self):
+    def _init_board(self):
         '''Initialize the game board with n_rows rows.
         Each row is a list of strings (not a Stack) because rows must be
         ordered.
@@ -73,7 +105,7 @@ class Game:
 
         return board
 
-    def complete_row(self, n_row):
+    def _complete_row(self, n_row):
         '''Complete the selected row by adding cards from the deck until at
         least two bird types are represented.
         '''
@@ -82,23 +114,23 @@ class Game:
             row += self.draw(1).l
         self.board[n_row] = row
 
-    def next_turn(self):
+    def _next_turn(self):
         self.current_player += 1
         if self.current_player >= self.n_players:
             self.current_player = 0
             self.current_turn += 1
         self.current_phase = 'lay'
 
-    def next_round(self):
+    def _next_round(self):
         '''Goes to the next round. Discards all the cards in players' hands and
         replaces them with 8 new ones.
         Resets the current player's turn (puts them back at 'lay' phase).
         '''
         self.discard += sum(self.hands)
-        init_hands()
+        self._init_hands()
         self.current_phase = 'lay'
 
-    def end_game(self):
+    def _end_game(self):
         self.end = True
         if self.winner:
             print('\nThe game has ended!')
@@ -109,7 +141,7 @@ class Game:
         print('Game state at the end:\n\n')
         print(self.state_summary())
 
-    def check_win(self, collection):
+    def _check_win(self, collection):
         '''Checks if a given collection is a winning one.
         There are two win conditions: having seven different species or having
         at least three of two different species.
@@ -212,12 +244,16 @@ class Game:
 
         row = row + to_lay
         self.board[n_row] = row if side == 'right' else list(reversed(row))
-        self.complete_row(n_row)
+        self._complete_row(n_row)
 
         self.current_phase = 'flock'
 
     def flock(self, bird=None):
         '''Makes a flock (small or big) out of selected bird.
+
+        Args:
+            bird (None or string): If string, name of the bird to flock.
+                                   If None, signal to pass one's turn.
         '''
         assert self.current_phase == 'flock', 'Now is not the time to flock birds!'
 
@@ -234,15 +270,15 @@ class Game:
             else:
                 self.current_collection += [bird]
 
-        if self.check_win(self.current_collection):
+        if self._check_win(self.current_collection):
             self.winner = self.current_player
-            self.end_game()
+            self._end_game()
 
         else:
             if self.current_hand.empty:
-                self.next_round()
+                self._next_round()
             else:
-                self.next_turn()
+                self._next_turn()
 
 
 if __name__ == '__main__':

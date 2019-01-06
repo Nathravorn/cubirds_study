@@ -8,14 +8,27 @@ from utils import card_data, count_hand, list_hand
 class Stack:
     '''An unordered stack of cards. Has a dict form (self.d) and a list form.
     Both can be used to update the stack. Supports subscripting to get and set
-    card counts.
+    card counts, as well as +, - and 'in' operators to combine stacks together.
+
     Example:
         stack = Stack(['cube', 'cube'])
         stack['sandwich'] += 1
+        stack += ['cube', 'sparrow']
+        stack -= ['sparrow']
+        stack.draw_all('cube')
+        print(stack.l)
+        # ['sandwich']
+
+    Attributes:
+        d (dict): self dict-form. Keys are card types and values are counts.
+                  Includes card types which appear 0 times.
     '''
     def __init__(self, stack=[]):
-        '''Initialize a stack with a list of strings. All strings must be valid
-        card types.
+        '''Initialize a stack with either a list of strings, a dict-form stack
+        or another Stack object.
+
+        Args:
+            stack (list, dict or Stack): card stack representation.
         '''
         if isinstance(stack, list):
             self.d = count_hand(stack)
@@ -51,7 +64,7 @@ class Stack:
         return json.dumps(self.d, indent=4, sort_keys=True)
 
     def __repr__(self):
-        return str(self)
+        return str(self.d)
 
     def __getitem__(self, key):
         return self.d[key]
@@ -72,6 +85,8 @@ class Stack:
         return self.l == []
 
     def n_unique(self):
+        '''Number of unique card types which appear at least once in the stack.
+        '''
         return len(set(self.l))
 
     def __len__(self):
@@ -101,6 +116,8 @@ class Stack:
         return Stack(out)
 
     def draw(self, n=1):
+        '''Draw n random cards from self and return them.
+        '''
         out = list(np.random.choice(self.l, min(n, len(self)), replace=False))
         self.d = (self - out).d
 
