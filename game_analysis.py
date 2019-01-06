@@ -1,4 +1,5 @@
 import itertools as it
+from timeit import default_timer as dt
 import numpy as np
 
 from utils import card_data, json_print
@@ -123,10 +124,12 @@ def available_moves(game, counts='deck'):
 
     out = {}
     for lay_option, cards in available_lays(game.current_hand, game.board).items():
+        hand = Stack(game.current_hand)
+        hand.draw_all(lay_option[0])
         if cards == 'draw':
             proba_map = {}
             for draw in it.product(card_data, card_data):
-                flocks = tuple(flocks_to_list(available_flocks(game.current_hand + list(draw))))
+                flocks = tuple(flocks_to_list(available_flocks(hand + list(draw))))
 
                 if flocks in proba_map:
                     proba_map[flocks] += draw_probas[draw]
@@ -136,7 +139,7 @@ def available_moves(game, counts='deck'):
             out[lay_option] = proba_map
 
         else:
-            out[lay_option] = tuple(flocks_to_list(available_flocks(game.current_hand + cards)))
+            out[lay_option] = tuple(flocks_to_list(available_flocks(hand + cards)))
 
     return out
 
