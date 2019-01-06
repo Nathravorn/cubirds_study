@@ -160,6 +160,7 @@ class Game:
             return s + '\n' + '='*len(s) + '\n'
 
         out = [
+            '',
             'Current turn: {}'.format(self.current_turn),
             'Current player: {}'.format(self.current_player),
             'Current phase: {}'.format(self.current_phase),
@@ -176,7 +177,7 @@ class Game:
         for player in range(self.n_players):
             out.extend([
                 'Player {}:'.format(player),
-                '    Hand: ' + ', '.join(self.hands[player].l),
+                '    Hand: ' + (', '.join(self.hands[player].l)),
                 '    Collection: ' + ', '.join(self.collections[player].l)
             ])
 
@@ -186,7 +187,40 @@ class Game:
             indent_string(str(self.deck)),
         ])
 
-        return '\n'.join(out)
+        print('\n'.join(out))
+
+    def player_summary(self, player=None):
+        if player is None:
+            player = self.current_player
+
+        out = [
+            '',
+            'Current turn: {}'.format(self.current_turn),
+            'Current player: {}'.format(self.current_player),
+            'Current phase: {}'.format(self.current_phase),
+            ''
+        ]
+
+        out.append('Board:')
+
+        for n_row in range(self.n_rows):
+            out.append('Row {}: '.format(n_row) + ', '.join(x.rjust(8) for x in self.board[n_row]))
+
+        out.append('\n')
+
+        out.extend([
+            'Player {} (you):'.format(player),
+            '    Hand:       ' + (', '.join(self.hands[player].l)),
+            '    Collection: ' + ', '.join(self.collections[player].l),
+            '',
+            'Collections:'
+        ])
+
+        for p in range(self.n_players):
+            if p != player:
+                out.append('    Player {}: {}'.format(p, ', '.join(self.collections[p].l)))
+
+        print('\n'.join(out))
 
     def get_current_hand(self):
         return self.hands[self.current_player]
@@ -284,7 +318,8 @@ class Game:
 
 if __name__ == '__main__':
     game = Game(n_players=2)
-    print(game.state_summary())
+    game.state_summary()
+    game.player_summary()
     # game.board[0] = ['parrot', 'parrot', 'parrot', 'parrot', 'cube']
     # game.hands[0] = Stack(['cube', 'cube'])
     # game.lay('cube', 0, 'left')
