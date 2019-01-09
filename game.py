@@ -29,18 +29,20 @@ class Game:
         winner (int): if end, can be int to signify the winner or None if the
                       game ended in a draw.
     '''
-    def __init__(self, n_players=4, n_rows=4):
+    def __init__(self, n_players=4, n_rows=4, verbose=True):
         '''Initialize a game of Cubirds.
 
         Args:
             n_players: The number of players.
             n_rows: The number of rows on the board. Defaults to 4.
+            verbose (bool): Whether to print text without being asked.
         '''
         self.n_players = n_players
         self.current_turn = 0
         self.current_player = 0
         self.current_phase = 'lay'
         self.n_rows = n_rows
+        self.verbose = verbose
 
         self.deck = get_deck()
         self.discard = Stack()
@@ -68,6 +70,7 @@ class Game:
                 hand = hand + self.draw(n-len(hand))
             else:
                 self._end_game()
+                return self.deck + self.discard
 
         return hand
 
@@ -110,7 +113,11 @@ class Game:
         '''
         row = self.board[n_row]
         while Stack(row).n_unique() < 2:
-            row += self.draw(1).l
+            draw = self.draw(1)
+            if not draw.empty:
+                row += draw.l
+            else:
+                break
         self.board[n_row] = row
 
     def _next_turn(self):
@@ -125,20 +132,25 @@ class Game:
         replaces them with 8 new ones.
         Resets the current player's turn (puts them back at 'lay' phase).
         '''
-        self.discard += sum(self.hands)
-        self._init_hands()
+        # self.discard += sum(self.hands.values())
+        for h in self.hands.values():
+            self.discard += h
+        
+        
+        self.hands = self._init_hands()
         self.current_phase = 'lay'
 
     def _end_game(self):
         self.end = True
-        if self.winner:
-            print('\nThe game has ended!')
-            print('The winner is: player {}!'.format(self.winner))
-        else:
-            print('The game has ended in a draw!')
+        if self.verbose:
+            if self.winner:
+                print('\nThe game has ended!')
+                print('The winner is: player {}!'.format(self.winner))
+            else:
+                print('The game has ended in a draw!')
 
-        print('Game state at the end:\n\n')
-        print(self.state_summary())
+            print('Game state at the end:\n\n')
+            print(self.state_summary())
 
     def _check_win(self, collection):
         '''Checks if a given collection is a winning one.

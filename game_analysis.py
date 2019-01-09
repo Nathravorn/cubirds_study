@@ -40,7 +40,7 @@ def available_lays(hand, board):
 
     Returns:
         dict: A nested dictionary with (bird, row, side) as keys and Stacks as
-              values.
+            values.
     '''
     hand = Stack(hand)
     out = {}

@@ -57,7 +57,7 @@ class Stack:
             elif target == 'dict':
                 return input.d
         else:
-            raise Exception('Unrecognized input type.')
+            raise Exception(f'Unrecognized input type: {type(input)} of object {input}')
 
     def __str__(self):
         out = {k: v for k, v in self.d.items() if v > 0}
