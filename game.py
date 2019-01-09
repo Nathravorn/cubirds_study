@@ -292,10 +292,9 @@ class Game:
         '''
         assert self.current_phase == 'flock', 'Now is not the time to flock birds!'
 
-        small = card_data[bird]['small']
-        big = card_data[bird]['big']
-
         if bird is not None:
+            small = card_data[bird]['small']
+            big = card_data[bird]['big']
             n_birds = self.current_hand[bird]
             assert n_birds >= small, 'You need at least {} {}s to make a flock.'.format(small, bird)
 
