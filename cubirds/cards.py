@@ -5,13 +5,13 @@ import numpy as np
 from ..utils import card_data
 
 
-class Stack(Multiset):
+class UnorderedCards(Multiset):
     '''An unordered stack of cards. Has a dict (multiset) form and a list form.
     Both can be used to update the stack. Supports subscripting to get and set
     card counts, as well as +, - and 'in' operators to combine stacks together.
 
     Example:
-        stack = Stack(['cube', 'cube'])
+        stack = UnorderedCards(['cube', 'cube'])
         stack['sandwich'] += 1
         stack += ['cube', 'sparrow']
         stack -= ['sparrow']
@@ -69,22 +69,22 @@ class Stack(Multiset):
             self[selected_bird] -= 1
             l -= 1
 
-        return Stack(out)
+        return UnorderedCards(out)
 
     def draw_all(self, bird):
         '''Draw all cards of type bird from self and return them.
         '''
         out = [bird] * self[bird]
         self[bird] = 0
-        return Stack(out)
+        return UnorderedCards(out)
 
     def dedupe(self):
         '''Separate the stack into its unique elements and any extra duplicates.
         Returns:
-            Stack: a stack containing only unique cards.
-            Stack: a stack containing only extra duplicates.
+            UnorderedCards: a stack containing only unique cards.
+            UnorderedCards: a stack containing only extra duplicates.
         '''
-        dupes = Stack()
+        dupes = UnorderedCards()
         for bird, count in self.items():
             if count >= 2:
                 self[bird] = 1
@@ -96,15 +96,15 @@ class Stack(Multiset):
         return { k:v for k, v in self.items() }
 
 def get_deck():
-    '''Return a Stack of all 110 cards in the game.
+    '''Return a UnorderedCards of all 110 cards in the game.
     '''
     deck = {bird: atts['count'] for bird, atts in card_data.items()}
 
-    return Stack(deck)
+    return UnorderedCards(deck)
 
 
 # if __name__ == '__main__':
-    # stack = Stack(list('abcabc'))
+    # stack = UnorderedCards(list('abcabc'))
     # hand = stack.draw(10)
     #
     # print(stack, hand)

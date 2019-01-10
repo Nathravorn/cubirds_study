@@ -3,7 +3,7 @@ from timeit import default_timer as dt
 import numpy as np
 
 from ..utils import card_data, json_print
-from .cards import Stack
+from .cards import UnorderedCards
 from .game import Game
 
 
@@ -35,14 +35,14 @@ def available_lays(hand, board):
     and computes their outcomes.
 
     Args:
-        hand (Stack, list or dict): A hand of cards.
+        hand (UnorderedCards, list or dict): A hand of cards.
         board (dict of lists of strings): The rows of the board.
 
     Returns:
-        dict: A nested dictionary with (bird, row, side) as keys and Stacks as
+        dict: A nested dictionary with (bird, row, side) as keys and UnorderedCardss as
             values.
     '''
-    hand = Stack(hand)
+    hand = UnorderedCards(hand)
     out = {}
     for bird in set(hand.l):
         for n_row, row in board.items():
@@ -54,12 +54,12 @@ def available_lays(hand, board):
 def available_flocks(hand):
     '''Given a hand of cards, returns a dict of flock possibilities.
     Args:
-        hand (Stack, list or dict): A hand of cards.
+        hand (UnorderedCards, list or dict): A hand of cards.
     Returns:
         dict: A dictionary with card types as keys and either 0 (no flock), 1
              (small flock) or 2 (big flock) as values.
     '''
-    hand = Stack(hand)
+    hand = UnorderedCards(hand)
     out = {}
     for bird, count in hand.items():
         if count >= card_data[bird]['big']:
@@ -122,7 +122,7 @@ def available_moves(game, counts='deck'):
 
     out = {}
     for lay_option, cards in available_lays(game.current_hand, game.board).items():
-        hand = Stack(game.current_hand)
+        hand = UnorderedCards(game.current_hand)
         hand.draw_all(lay_option[0])
         if cards == 'draw':
             proba_map = {}

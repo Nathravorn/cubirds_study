@@ -2,7 +2,7 @@ import numpy as np
 from random import shuffle
 
 from ..utils import card_data
-from .cards import Stack, get_deck
+from .cards import UnorderedCards, get_deck
 
 class Game:
     '''A class representing a game of Cubirds.
@@ -16,11 +16,11 @@ class Game:
                              turn.
         n_rows (int): The number of rows on the board. Defaults to 4.
 
-        deck (Stack): Cards remaining in the deck.
-        discard (Stack): Discard pile.
-        hands (dict of Stacks): dict with player numbers as keys and player
+        deck (UnorderedCards): Cards remaining in the deck.
+        discard (UnorderedCards): Discard pile.
+        hands (dict of UnorderedCardss): dict with player numbers as keys and player
                                 hands as values.
-        collections (dict of Stacks): dict with player numbers as keys and
+        collections (dict of UnorderedCardss): dict with player numbers as keys and
                                       player collections as values.
         board (dict of lists of strings): rows on the board. Represented as
                                           lists because their order matters.
@@ -45,7 +45,7 @@ class Game:
         self.verbose = verbose
 
         self.deck = get_deck()
-        self.discard = Stack()
+        self.discard = UnorderedCards()
         self.hands = self._init_hands()
         self.collections = self._init_collections()
         self.board = self._init_board()
@@ -66,7 +66,7 @@ class Game:
             if len(self.deck) + len(self.discard) >= n:
                 hand = self.deck
                 self.deck = self.discard
-                self.discard = Stack()
+                self.discard = UnorderedCards()
                 hand = hand + self.draw(n-len(hand))
             else:
                 self._end_game()
@@ -90,7 +90,7 @@ class Game:
 
     def _init_board(self):
         '''Initialize the game board with n_rows rows.
-        Each row is a list of strings (not a Stack) because rows must be
+        Each row is a list of strings (not a UnorderedCards) because rows must be
         ordered.
         '''
         board = {}
@@ -112,7 +112,7 @@ class Game:
         least two bird types are represented.
         '''
         row = self.board[n_row]
-        while Stack(row).n_unique() < 2:
+        while UnorderedCards(row).n_unique() < 2:
             draw = self.draw(1)
             if not draw.empty:
                 row += draw.l
@@ -247,13 +247,13 @@ class Game:
     current_collection = property(get_current_collection, set_current_collection)
 
     def invisible(self, player):
-        '''Returns the Stack of cards invisible to the given player, that is:
+        '''Returns the UnorderedCards of cards invisible to the given player, that is:
         cards in other players' hands or in the deck.
         '''
         return sum(self.hands) - self.current_hand + self.deck
 
     def visible(self, player):
-        '''Returns the Stack of cards visible to the given player, that is:
+        '''Returns the UnorderedCards of cards visible to the given player, that is:
         cards in his own hand, on the board, in collections or in the discard
         pile.
         '''
@@ -332,7 +332,7 @@ if __name__ == '__main__':
     game.state_summary()
     game.player_summary()
     # game.board[0] = ['parrot', 'parrot', 'parrot', 'parrot', 'cube']
-    # game.hands[0] = Stack(['cube', 'cube'])
+    # game.hands[0] = UnorderedCards(['cube', 'cube'])
     # game.lay('cube', 0, 'left')
     # game.flock('parrot')
     # print(game.state_summary())

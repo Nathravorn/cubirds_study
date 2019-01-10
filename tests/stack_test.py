@@ -1,9 +1,9 @@
 import pytest
 
-from ..cubirds.cards import Stack, get_deck
+from ..cubirds.cards import UnorderedCards, get_deck
 
 def test_stack_example():
-    stack = Stack(['cube', 'cube'])
+    stack = UnorderedCards(['cube', 'cube'])
     assert stack.l == ['cube', 'cube']
     assert len(stack) == 2
 

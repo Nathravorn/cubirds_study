@@ -1,16 +1,16 @@
 import pytest
 
 from ..cubirds.game import Game
-from ..cubirds.cards import Stack
+from ..cubirds.cards import UnorderedCards
 from ..cubirds.game_analysis import available_lays, available_flocks
 from ..random_moves import playout
 
 
 def test_game_example():
     game = Game(n_players=1, n_rows=1)
-    game.deck = Stack(['sparrow'])
+    game.deck = UnorderedCards(['sparrow'])
     game.board[0] = ['parrot', 'parrot', 'parrot', 'parrot', 'cube']
-    game.hands[0] = Stack(['cube', 'cube', 'sandwich'])
+    game.hands[0] = UnorderedCards(['cube', 'cube', 'sandwich'])
     assert game.current_phase == 'lay'
 
     game.lay('cube', 0, 'left')
