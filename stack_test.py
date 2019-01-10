@@ -5,12 +5,14 @@ from stack import Stack, get_deck
 def test_stack_example():
     stack = Stack(['cube', 'cube'])
     assert stack.l == ['cube', 'cube']
+    assert len(stack) == 2
 
     stack['sandwich'] += 1
     assert sorted(stack.l) == ['cube', 'cube', 'sandwich']
 
     stack += ['cube', 'sparrow']
     assert sorted(stack.l) == ['cube', 'cube', 'cube', 'sandwich', 'sparrow']
+    assert len(stack) == 5
 
     stack -= ['sparrow']
     assert sorted(stack.l) == ['cube', 'cube', 'cube', 'sandwich']

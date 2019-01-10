@@ -91,7 +91,7 @@ class Stack:
         return len(set(self.l))
 
     def __len__(self):
-        return len(self.l)
+        return sum(self.d.values())
 
     def __contains__(self, other):
         try:
