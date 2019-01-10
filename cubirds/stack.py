@@ -1,7 +1,7 @@
 from random import shuffle
 import json
 import numpy as np
-from utils import card_data, count_hand, list_hand
+from ..utils import card_data, count_hand, list_hand
 
 
 class Stack:

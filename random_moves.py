@@ -1,9 +1,9 @@
 import numpy as np
 from random import shuffle
-from utils import card_data
-from cubirds.stack import Stack
-from cubirds.game import Game
-from cubirds.game_analysis import available_lays, available_flocks
+from .utils import card_data
+from .cubirds.stack import Stack
+from .cubirds.game import Game
+from .cubirds.game_analysis import available_lays, available_flocks
 
 def random_turn(game):
     '''Make a random lay and flock (if one is available) action.

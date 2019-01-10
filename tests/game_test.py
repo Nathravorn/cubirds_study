@@ -1,9 +1,9 @@
 import pytest
 
-from cubirds.game import Game
-from cubirds.stack import Stack
-from cubirds.game_analysis import available_lays, available_flocks
-from random_moves import playout
+from ..cubirds.game import Game
+from ..cubirds.stack import Stack
+from ..cubirds.game_analysis import available_lays, available_flocks
+from ..random_moves import playout
 
 
 def test_game_example():

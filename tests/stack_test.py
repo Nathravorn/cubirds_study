@@ -1,6 +1,6 @@
 import pytest
 
-from cubirds.stack import Stack, get_deck
+from ..cubirds.stack import Stack, get_deck
 
 def test_stack_example():
     stack = Stack(['cube', 'cube'])
