@@ -6,7 +6,8 @@ let
   }) {};
 
   pythonDeps = pythonPackages: with pythonPackages; [
-    numpy pytest pytest-benchmark
+    numpy multiset
+    pytest pytest-benchmark
   ];
 
 in (pkgs.python3.withPackages pythonDeps).env

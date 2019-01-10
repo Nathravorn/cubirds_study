@@ -17,12 +17,8 @@ def test_stack_example():
     stack -= ['sparrow']
     assert sorted(stack.l) == ['cube', 'cube', 'cube', 'sandwich']
 
-    with pytest.raises(Exception):
-        stack -= ['sparrow']
-
-    # TODO
-    # with pytest.raises(Exception):
-    #     stack['sparrow'] -= 1
+    stack -= ['sparrow']
+    assert sorted(stack.l) == ['cube', 'cube', 'cube', 'sandwich']
 
     stack.draw_all('cube')
     assert stack.l == ['sandwich']

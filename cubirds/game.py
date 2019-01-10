@@ -159,7 +159,7 @@ class Game:
         '''
         if collection.n_unique() >= 7:
             return True
-        elif len([c for c in collection.d.values() if c >= 3]) >= 2:
+        elif len([c for c in collection.values() if c >= 3]) >= 2:
             return True
         else:
             return False
@@ -268,7 +268,7 @@ class Game:
             draw (bool): Whether to draw two cards from the deck if no cards are
                          taken by laying the birds.
         '''
-        assert [bird] in self.current_hand, 'You do not have any {} to lay!'.format(bird)
+        assert bird in self.current_hand, 'You do not have any {} to lay!'.format(bird)
         assert self.current_phase == 'lay', 'Now is not the time to lay birds!'
 
         to_lay = self.current_hand.draw_all(bird).l

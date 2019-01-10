@@ -10,30 +10,6 @@ with open('card_data.json', 'r') as file:
 def json_print(d):
     print(json.dumps(d, indent=4, sort_keys=True))
 
-def count_hand(hand):
-    '''Count the unique cards in a list of cards (hand).
-    Args:
-        hand (list): list of strings. All strings must be valid bird names.
-    Returns:
-        dict: name->count dictionary. Includes birds which appear 0 times.
-    '''
-    count = {bird: 0 for bird in card_data}
-    count.update({k: int(v) for k, v in zip(*np.unique(hand, return_counts=True))})
-    return count
-
-def list_hand(hand):
-    '''Revert a counted hand to a list of strings.
-    Args:
-        dict: name->count dictionary.
-    Returns:
-        hand (list): list of strings.
-    '''
-    cards = []
-    for bird in hand:
-        cards.extend([bird]*hand[bird])
-
-    return cards
-
 def dedupe(hand):
     '''Separate a dict-form hand into its unique elements and any extra
     duplicates.

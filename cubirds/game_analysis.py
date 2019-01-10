@@ -61,7 +61,7 @@ def available_flocks(hand):
     '''
     hand = Stack(hand)
     out = {}
-    for bird, count in hand.d.items():
+    for bird, count in hand.items():
         if count >= card_data[bird]['big']:
             out[bird] = 2
         elif count >= card_data[bird]['small']:
@@ -106,9 +106,7 @@ def available_moves(game, counts='deck'):
         for bird, info in card_data.items():
             counts[bird] = info['count']
     elif counts == 'invisible':
-        counts = {}
-        invis = game.invisible(game.current_player)
-        counts.update(invis.d)
+        counts = game.invisible(game.current_player).to_dict()
 
     counts['total'] = sum(counts.values())
 
