@@ -2,4 +2,4 @@ test:
 	pytest --benchmark-skip
 
 perf:
-	pytest --benchmark-only
+	pytest --benchmark-only --benchmark-compare

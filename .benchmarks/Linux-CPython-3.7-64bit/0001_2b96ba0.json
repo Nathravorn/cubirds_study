@@ -1,0 +1,174 @@
+{
+    "machine_info": {
+        "node": "wilwarin",
+        "processor": "",
+        "machine": "x86_64",
+        "python_compiler": "GCC 7.3.0",
+        "python_implementation": "CPython",
+        "python_implementation_version": "3.7.2",
+        "python_version": "3.7.2",
+        "python_build": [
+            "default",
+            "Dec 24 2018 03:41:55"
+        ],
+        "release": "4.19.13",
+        "system": "Linux",
+        "cpu": {
+            "vendor_id": "GenuineIntel",
+            "hardware": "unknown",
+            "brand": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz"
+        }
+    },
+    "commit_info": {
+        "id": "2b96ba04104e35bef571b69130923a746083edce",
+        "time": "2019-01-10T15:12:06+01:00",
+        "author_time": "2019-01-10T15:12:06+01:00",
+        "dirty": false,
+        "project": "cubirds_study",
+        "branch": "tests"
+    },
+    "benchmarks": [
+        {
+            "group": null,
+            "name": "test_perf_available_lays",
+            "fullname": "game_test.py::test_perf_available_lays",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 4.218100002617575e-05,
+                "max": 0.00011680799980240408,
+                "mean": 4.317287293838396e-05,
+                "stddev": 3.4961967267719607e-06,
+                "rounds": 12050,
+                "median": 4.269400051271077e-05,
+                "iqr": 2.3799930204404518e-07,
+                "q1": 4.258800072420854e-05,
+                "q3": 4.2826000026252586e-05,
+                "iqr_outliers": 1039,
+                "stddev_outliers": 195,
+                "outliers": "195;1039",
+                "ld15iqr": 4.224599979352206e-05,
+                "hd15iqr": 4.3182999434066005e-05,
+                "ops": 23162.69295831189,
+                "total": 0.5202331189075267,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_perf_create_game",
+            "fullname": "game_test.py::test_perf_create_game",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.0011269389997323742,
+                "max": 0.0028691799998341594,
+                "mean": 0.0015586709804046894,
+                "stddev": 0.0003193980932938606,
+                "rounds": 613,
+                "median": 0.001509356000497064,
+                "iqr": 0.0003843962499558984,
+                "q1": 0.0013212509998083988,
+                "q3": 0.0017056472497642972,
+                "iqr_outliers": 18,
+                "stddev_outliers": 173,
+                "outliers": "173;18",
+                "ld15iqr": 0.0011269389997323742,
+                "hd15iqr": 0.0022972130000198376,
+                "ops": 641.572219263595,
+                "total": 0.9554653109880746,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_perf_playout",
+            "fullname": "game_test.py::test_perf_playout",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 0.0011217149994990905,
+                "max": 0.0031137189998844406,
+                "mean": 0.0014900103414987598,
+                "stddev": 0.0002940867723534945,
+                "rounds": 448,
+                "median": 0.0014949509995858534,
+                "iqr": 0.00037480599985428853,
+                "q1": 0.0013129950002621626,
+                "q3": 0.0016878010001164512,
+                "iqr_outliers": 6,
+                "stddev_outliers": 155,
+                "outliers": "155;6",
+                "ld15iqr": 0.0011217149994990905,
+                "hd15iqr": 0.0022511999995913357,
+                "ops": 671.136281506696,
+                "total": 0.6675246329914444,
+                "iterations": 1
+            }
+        },
+        {
+            "group": null,
+            "name": "test_pref_draw_deck",
+            "fullname": "stack_test.py::test_pref_draw_deck",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 1.8370001271250658e-06,
+                "max": 5.275000148685649e-06,
+                "mean": 1.974820981175933e-06,
+                "stddev": 3.790169448046978e-07,
+                "rounds": 95,
+                "median": 1.925000105984509e-06,
+                "iqr": 3.2249317882815376e-08,
+                "q1": 1.9075002910540206e-06,
+                "q3": 1.939749608936836e-06,
+                "iqr_outliers": 9,
+                "stddev_outliers": 2,
+                "outliers": "2;9",
+                "ld15iqr": 1.8599994291434996e-06,
+                "hd15iqr": 2.00100021174876e-06,
+                "ops": 506375.01299208245,
+                "total": 0.00018760799321171362,
+                "iterations": 1
+            }
+        }
+    ],
+    "datetime": "2019-01-10T14:12:35.917808",
+    "version": "__version__ = '3.2.0'"
+}
