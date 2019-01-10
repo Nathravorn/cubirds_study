@@ -3,8 +3,8 @@ from timeit import default_timer as dt
 import numpy as np
 
 from utils import card_data, json_print
-from stack import Stack
-from game import Game
+from cubirds.stack import Stack
+from cubirds.game import Game
 
 
 def compute_lay(bird, row, side):

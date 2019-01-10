@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 from tqdm import tqdm
 
-from game import Game
+from cubirds.game import Game
 from random_moves import playout
 
 def build_srs_iter(_):
