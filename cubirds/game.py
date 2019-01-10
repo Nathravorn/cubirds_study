@@ -2,7 +2,7 @@ import numpy as np
 from random import shuffle
 
 from ..utils import card_data
-from .stack import Stack, get_deck
+from .cards import Stack, get_deck
 
 class Game:
     '''A class representing a game of Cubirds.

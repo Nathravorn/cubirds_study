@@ -3,7 +3,7 @@ from timeit import default_timer as dt
 import numpy as np
 
 from ..utils import card_data, json_print
-from .stack import Stack
+from .cards import Stack
 from .game import Game
 
 

@@ -1,7 +1,7 @@
 import numpy as np
 from random import shuffle
 from .utils import card_data
-from .cubirds.stack import Stack
+from .cubirds.cards import Stack
 from .cubirds.game import Game
 from .cubirds.game_analysis import available_lays, available_flocks
 
