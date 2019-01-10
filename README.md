@@ -82,6 +82,15 @@ Which gives (truncated):
       ...
     }
 
+# Tests and benchmarks
+
+You will need to install `pytest` and `pytest-benchmark`.
+
+To run tests, run `./test [options]`; to run benchmarks, run `./perf [options]`.
+The options are pytest options.
+To save benchmarks for later comparison, use `./perf --benchmark-autosave`
+
+
 # Todo
 
     [X] Make a class for a stack of cards, with methods to draw, add, subtract, get and set in dictionary and list form.

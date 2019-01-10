@@ -1,0 +1,69 @@
+{
+    "machine_info": {
+        "node": "wilwarin",
+        "processor": "",
+        "machine": "x86_64",
+        "python_compiler": "GCC 7.3.0",
+        "python_implementation": "CPython",
+        "python_implementation_version": "3.7.2",
+        "python_version": "3.7.2",
+        "python_build": [
+            "default",
+            "Dec 24 2018 03:41:55"
+        ],
+        "release": "4.19.13",
+        "system": "Linux",
+        "cpu": {
+            "vendor_id": "GenuineIntel",
+            "hardware": "unknown",
+            "brand": "Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz"
+        }
+    },
+    "commit_info": {
+        "id": "1996c0424cd5408b762984b6d5968e92ae315e6b",
+        "time": "2019-01-10T18:02:08+01:00",
+        "author_time": "2019-01-10T18:02:08+01:00",
+        "dirty": false,
+        "project": "cubirds_study",
+        "branch": "master"
+    },
+    "benchmarks": [
+        {
+            "group": null,
+            "name": "test_pref_draw_deck",
+            "fullname": "stack_test.py::test_pref_draw_deck",
+            "params": null,
+            "param": null,
+            "extra_info": {},
+            "options": {
+                "disable_gc": false,
+                "timer": "perf_counter",
+                "min_rounds": 5,
+                "max_time": 1.0,
+                "min_time": 5e-06,
+                "warmup": false
+            },
+            "stats": {
+                "min": 7.309990905923769e-07,
+                "max": 4.472998625715263e-06,
+                "mean": 8.692708017103238e-07,
+                "stddev": 4.017505183868575e-07,
+                "rounds": 96,
+                "median": 8.13500264484901e-07,
+                "iqr": 1.9999788491986692e-08,
+                "q1": 8.050001270021312e-07,
+                "q3": 8.249999154941179e-07,
+                "iqr_outliers": 17,
+                "stddev_outliers": 2,
+                "outliers": "2;17",
+                "ld15iqr": 7.940016075735912e-07,
+                "hd15iqr": 8.799997885944322e-07,
+                "ops": 1150389.496613094,
+                "total": 8.344999696419109e-05,
+                "iterations": 1
+            }
+        }
+    ],
+    "datetime": "2019-01-10T17:02:35.317822",
+    "version": "3.1.1"
+}

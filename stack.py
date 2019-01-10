@@ -91,7 +91,7 @@ class Stack:
         return len(set(self.l))
 
     def __len__(self):
-        return len(self.l)
+        return sum(self.d.values())
 
     def __contains__(self, other):
         try:
@@ -119,8 +119,16 @@ class Stack:
     def draw(self, n=1):
         '''Draw n random cards from self and return them.
         '''
-        out = list(np.random.choice(self.l, min(n, len(self)), replace=False))
-        self.d = (self - out).d
+        out = []
+        l = len(self)
+        birds = list(self.d.keys())
+        for _ in range(n):
+            if l == 0:
+                break
+            selected_bird = np.random.choice(birds, p=[self.d[k]/l for k in birds])
+            out.append(selected_bird)
+            self.d[selected_bird] -= 1
+            l -= 1
 
         return Stack(out)
 
