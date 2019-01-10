@@ -86,7 +86,9 @@ Which gives (truncated):
 
 You will need to install `pytest` and `pytest-benchmark`.
 
-To run tests, run `make test`; to run benchmarks, run `make perf`.
+To run tests, run `./test [options]`; to run benchmarks, run `./perf [options]`.
+The options are pytest options.
+To save benchmarks for later comparison, use `./perf --benchmark-autosave`
 
 
 # Todo

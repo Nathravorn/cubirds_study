@@ -20,12 +20,22 @@ def test_stack_example():
     with pytest.raises(Exception):
         stack -= ['sparrow']
 
-    # TODO: strange. should raise exception ?
-    stack['sparrow'] -= 1
-    assert sorted(stack.l) == ['cube', 'cube', 'cube', 'sandwich']
+    # TODO
+    # with pytest.raises(Exception):
+    #     stack['sparrow'] -= 1
 
     stack.draw_all('cube')
     assert stack.l == ['sandwich']
+    assert len(stack) == 1
+
+    assert stack.draw().l == ['sandwich']
+    assert stack.l == []
+    assert stack.draw().l == []
+
+    stack += ['cube', 'cube', 'sandwich']
+    res = stack.draw(2)
+    assert sorted(res.l) == ['cube', 'sandwich'] or sorted(res.l) == ['cube', 'cube']
+    assert sorted((stack + res).l) == ['cube', 'cube', 'sandwich']
 
 
 def draw_one_by_one(stack):

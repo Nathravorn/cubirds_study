@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pytest --benchmark-only --benchmark-group-by=name --benchmark-compare "$@"
